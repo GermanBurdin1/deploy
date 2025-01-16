@@ -1,10 +1,10 @@
 import { GuessingGame } from './guessingGame';
 
 const game = new GuessingGame();
-const guessInput = document.getElementById('guessInput') as HTMLInputElement;
-const submitGuess = document.getElementById('submitGuess') as HTMLButtonElement;
-const messageDiv = document.getElementById('message') as HTMLDivElement;
-const attemptsDiv = document.getElementById('attempts') as HTMLDivElement;
+const guessInput = document.getElementById('guessInput');
+const submitGuess = document.getElementById('submitGuess');
+const messageDiv = document.getElementById('message');
+const attemptsDiv = document.getElementById('attempts');
 
 submitGuess.addEventListener('click', () => {
   const userGuess = parseInt(guessInput.value, 10);
@@ -23,6 +23,6 @@ submitGuess.addEventListener('click', () => {
       submitGuess.disabled = true;
     }
   } catch (error) {
-    messageDiv.textContent = (error as Error).message;
+    messageDiv.textContent = (error).message;
   }
 });
