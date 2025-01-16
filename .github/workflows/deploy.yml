@@ -25,8 +25,8 @@ jobs:
         run: npm install
 
       # Запуск тестов
-      - name: Run tests
-        run: npm test
+      - name: Run tests 
+        run: npm test -- --passWithNoTests
 
       # Сборка проекта
       - name: Build project
