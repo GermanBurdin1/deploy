@@ -1,6 +1,6 @@
-export default [
+module.exports = [
   {
-    files: ["src/**/*.ts"], 
+    files: ["src/**/*.ts"],
     languageOptions: {
       parser: "@typescript-eslint/parser",
     },
