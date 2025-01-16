@@ -1,20 +1,40 @@
-name: Deploy to Server
+name: Test and Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main # Укажите ветку, за которой хотите следить (например, main)
+      - main # Workflow запускается при пуше в ветку main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Проверка репозитория
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # Проверка репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # Выполнение деплоя
-    - name: Deploy to Server
-      run: |
-        ssh -o StrictHostKeyChecking=no user@your-server 'cd /path/to/project && git pull origin main && npm install && npm run build'
+      # Установка Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Укажите версию Node.js
+
+      # Установка зависимостей
+      - name: Install dependencies
+        run: npm install
+
+      # Запуск тестов
+      - name: Run tests
+        run: npm test
+
+      # Сборка проекта
+      - name: Build project
+        run: npm run build
+
+      # Деплой на GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: . # Укажите папку с собранным проектом
