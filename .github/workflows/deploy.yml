@@ -1,0 +1,20 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main # Укажите ветку, за которой хотите следить (например, main)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Проверка репозитория
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Выполнение деплоя
+    - name: Deploy to Server
+      run: |
+        ssh -o StrictHostKeyChecking=no user@your-server 'cd /path/to/project && git pull origin main && npm install && npm run build'
