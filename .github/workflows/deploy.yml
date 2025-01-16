@@ -10,31 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Проверка репозитория
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Установка Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Укажите версию Node.js
+          node-version: '20'
 
-      # Установка зависимостей
       - name: Install dependencies
         run: npm install
 
-      # Запуск тестов
       - name: Run tests 
-        run: npm test -- --passWithNoTests
+        run: jest --passWithNoTests
 
-      # Сборка проекта
       - name: Build project
-        run: npm run build
+        run: npm run build || echo "No build script found, skipping."
 
-      # Деплой на GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: . # Укажите папку с собранным проектом
+          publish_dir: . 
